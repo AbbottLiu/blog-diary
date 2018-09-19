@@ -1,0 +1,19 @@
+<nz-modal
+  [(nzVisible)]="nzVisible"
+  [nzTitle]="nzTitle"
+  [nzClosable]="false"
+  [nzWidth]="nzWidth"
+  [nzContent]="modalContent"
+  [nzWrapClassName]="''"
+  [nzFooter]="footerContent">
+  <ng-template #modalContent>
+      <ng-container>
+          <img />
+      </ng-container>
+  </ng-template>
+  <ng-template #footerContent>
+      <button nz-button nzType="primary" (click)="ok()">
+          <span>完成</span>
+        </button>
+  </ng-template>
+</nz-modal>

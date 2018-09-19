@@ -1,0 +1,66 @@
+<nz-modal
+[(nzVisible)]="dataVisible"
+[nzTitle]="title"
+[nzClosable]="false"
+[nzWidth]="520"
+[nzContent]="modalContent"
+[nzOkText]="'确定'"
+[nzCancelText]="'取消'"
+[nzMaskClosable]="false"
+[nzWrapClassName]="''"
+(nzOnCancel)="dataCancel()"
+(nzOnOk)="dataOk()">
+<ng-template #modalContent>
+    <form nz-form #form>
+          <ng-container *ngFor="let column of columns;let i=index;let last=last;">
+              <ng-container >
+                  <nz-form-item>
+                    <nz-form-label [nzSm]="8" [nzXs]="10" >{{column.title}}</nz-form-label>
+                      <nz-form-control [nzSm]="8" [nzXs]="10">
+                          <ng-container [ngSwitch]="column.type">
+                              <ng-container *ngSwitchCase="'date'">
+                                <nz-date-picker [(ngModel)]="data[column.index]" name="column.index" ></nz-date-picker>
+                              </ng-container>
+                              <ng-container *ngSwitchDefault>
+                                <input nz-input  [(ngModel)]="data[column.index]" name="column.index" placeholder="{{column.placeholder}}" maxlength="30"/>
+                              </ng-container>
+                          </ng-container>
+
+                        <!-- <input nz-input  [(ngModel)]="data.dataName" name="data.dataName" placeholder="'角色名称'"/> -->
+                      </nz-form-control>
+                  </nz-form-item>
+              </ng-container>
+          </ng-container>
+    <!-- <nz-form-item>
+    <nz-form-label [nzSm]="8" [nzXs]="10" >名称</nz-form-label>
+      <nz-form-control [nzSm]="8" [nzXs]="10">
+          <input nz-input  [(ngModel)]="data.dataName" name="data.dataName" placeholder="'角色名称'"/>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="8" [nzXs]="10" >类型</nz-form-label>
+        <nz-form-control [nzSm]="8" [nzXs]="10">
+          <input nz-input  [(ngModel)]="data.type" name="udata.type"  placeholder="'类型'"/>
+        </nz-form-control>
+    </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="8" [nzXs]="10" >排序号</nz-form-label>
+          <nz-form-control [nzSm]="8" [nzXs]="10">
+            <input type="email" nz-input  [(ngModel)]="data.sort" name="data.sort"  placeholder="'排序号'"/>
+          </nz-form-control>
+      </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="8" [nzXs]="10" >状态</nz-form-label>
+        <nz-form-control [nzSm]="8" [nzXs]="10">
+          <nz-switch [(ngModel)]="data.enabled" name="data.enabled" nzCheckedChildren="启用" nzUnCheckedChildren="禁用"></nz-switch>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="8" [nzXs]="10" >描述</nz-form-label>
+        <nz-form-control [nzSm]="8" [nzXs]="10">
+          <textarea row="4" nz-input  nzWidth="200px" [(ngModel)]="data.dataDesc" name="data.dataDesc"  placeholder="'描述"></textarea>
+        </nz-form-control>
+    </nz-form-item> -->
+    </form>
+</ng-template>
+</nz-modal>

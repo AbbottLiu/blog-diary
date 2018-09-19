@@ -1,0 +1,63 @@
+<nz-table #nzTable [(nzData)]="data" *ngIf="data||columns" [nzBordered]="true" [nzShowPagination]="false">
+  <thead>
+    <tr>
+      <th [nzWidth]="'50px'"></th>
+      <th *ngFor="let column of columns; let i = index" [nzWidth]="column.width">{{column.title}}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-template ngFor let-menu let-index [ngForOf]="nzTable.data">
+      <ng-template ngFor let-item  [ngForOf]="expandDataCache[menu.id]" >
+        <tr *ngIf="(item.parent&&item.parent.expand)||!(item.parent)" >
+          <td [nzIndentSize]="item.level" [nzShowExpand]="!!item.child" [(nzExpand)]="item.expand" (nzExpandChange)="collapse(expandDataCache[menu.id],item,$event)">
+          </td>
+          <td *ngFor="let column of columns; let i = index; ">
+              <ng-container *ngIf="column" [ngSwitch]="column.type">
+                  <ng-container *ngSwitchCase="'icon'"><i class="{{item[column.index]}}"></i></ng-container>
+                  <ng-container *ngSwitchCase="'img'"><img src="{{item[column.index]}}"/></ng-container>
+                  <ng-container *ngSwitchDefault>{{item[column.index]}}</ng-container>
+              </ng-container>
+              <ng-container  *ngFor="let btn of column.buttons; let last=last" >
+                  <ng-container  *ngIf="btn" [ngSwitch]="btn.type">
+                    <ng-container *ngSwitchCase="'del'">
+                      <nz-popconfirm [nzTitle]="'确认删除吗？'" (nzOnConfirm)="_btnClick(item,btn)">
+                        <a nz-popconfirm [innerHTML]="_btnText(i, btn)"></a>
+                      </nz-popconfirm>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'link'">
+                      <nz-dropdown>
+                        <a class="ant-dropdown-link" nz-dropdown>
+                          <span [innerHTML]="_btnText(i, btn)"></span>
+                          <i class="anticon anticon-down"></i>
+                        </a>
+                        <!-- <ul nz-menu>
+                          <ng-container *ngFor="let subBtn of btn.children">
+                            <li nz-menu-item *ngIf="subBtn.iif(i, subBtn, c)">
+                              <nz-popconfirm *ngIf="subBtn._type === 'del'" [nzTitle]="subBtn.popTitle" (nzOnConfirm)="_btnClick($event, i, subBtn)">
+                                <span nz-popconfirm [innerHTML]="_btnText(i, subBtn)"></span>
+                              </nz-popconfirm>
+                              <span *ngIf="subBtn._type !== 'del'" (click)="_btnClick($event, i, subBtn)" [innerHTML]="_btnText(i, subBtn)"></span>
+                            </li>
+                          </ng-container>
+                        </ul> -->
+                      </nz-dropdown>
+                    </ng-container>
+                    <a *ngSwitchDefault (click)="_btnClick(item, btn)" [innerHTML]="_btnText(i, btn)"></a>
+                    <nz-divider *ngIf="!last" nzType="vertical"></nz-divider>
+                  </ng-container>
+                </ng-container>
+          </td>
+          <!-- <td>{{item.i18n}}</td>
+          <td>{{item.link}}</td>
+          <td>{{item.externalLink}}</td>
+          <td>{{item.icon}}</td>
+          <td>{{item.roleDesc}}</td>
+          <td>{{item.date| date:'yyyy-MM-dd HH:MM:SS'}}</td> -->
+
+        </tr>
+      </ng-template>
+    </ng-template>
+  </tbody>
+</nz-table>
+  <!-- <td *ngFor="let column of columns; let i = index; ">{{column[index]}}</td> -->

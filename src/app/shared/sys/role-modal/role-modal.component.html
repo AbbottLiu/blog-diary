@@ -1,0 +1,53 @@
+<nz-modal
+[(nzVisible)]="roleVisible"
+[nzTitle]="'角色信息'"
+[nzClosable]="false"
+[nzWidth]="520"
+[nzContent]="modalContent"
+[nzOkText]="'确定'"
+[nzCancelText]="'取消'"
+[nzMaskClosable]="false"
+[nzWrapClassName]="''"
+(nzOnCancel)="roleCancel()"
+(nzOnOk)="roleOk()">
+<ng-template #modalContent>
+    <form nz-form #form>
+<nz-form-item>
+    <nz-form-label [nzSm]="8" [nzXs]="10" >名称</nz-form-label>
+      <nz-form-control [nzSm]="8" [nzXs]="10">
+          <input nz-input  [(ngModel)]="role.roleName" name="role.roleName" placeholder="'角色名称'"/>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="8" [nzXs]="10" >类型</nz-form-label>
+        <nz-form-control [nzSm]="8" [nzXs]="10">
+          <input nz-input  [(ngModel)]="role.type" name="urole.type"  placeholder="'类型'"/>
+        </nz-form-control>
+    </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="8" [nzXs]="10" >排序号</nz-form-label>
+          <nz-form-control [nzSm]="8" [nzXs]="10">
+            <input type="email" nz-input  [(ngModel)]="role.sort" name="role.sort"  placeholder="'排序号'"/>
+          </nz-form-control>
+      </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="8" [nzXs]="10" >状态</nz-form-label>
+        <nz-form-control [nzSm]="8" [nzXs]="10">
+          <nz-switch [(ngModel)]="role.enabled" name="role.enabled" nzCheckedChildren="启用" nzUnCheckedChildren="禁用"></nz-switch>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="8" [nzXs]="10" >描述</nz-form-label>
+        <nz-form-control [nzSm]="8" [nzXs]="10">
+          <textarea row="4" nz-input  nzWidth="200px" [(ngModel)]="role.roleDesc" name="role.roleDesc"  placeholder="'描述"></textarea>
+        </nz-form-control>
+    </nz-form-item>
+    </form>
+</ng-template>
+</nz-modal>
+<!-- 对话框主体 -->
+<!-- <nz-modal [(nzVisible)]="deptTree" [nzContent]="deptTreeModalContent" [nzTitle]="'父部门选择'" (nzOnCancel)="deptTreeCancel()" (nzOnOk)="deptTreeOk()" [nzClosable]="false" [nzMaskClosable]="false">
+  <ng-template #deptTreeModalContent>
+    <dept-tree-read (click)="select($event)"></dept-tree-read>
+  </ng-template>
+</nz-modal> -->

@@ -1,0 +1,74 @@
+<nz-modal
+  [(nzVisible)]="nzVisible"
+  [nzTitle]="nzTitle"
+  [nzClosable]="false"
+  [nzWidth]="nzWidth"
+  [nzContent]="modalContent"
+  [nzWrapClassName]="''"
+  [nzFooter]="footerContent">
+  <ng-template #modalContent>
+    <nz-steps [nzCurrent]="current">
+      <nz-step nzTitle="模型"></nz-step>
+      <nz-step nzTitle="流程上传"></nz-step>
+    </nz-steps>
+    <div class="steps-content" *ngIf="current === 0">
+      <ng-container>
+          <form nz-form #form>
+              <nz-form-item>
+                  <nz-form-label [nzSm]="8" [nzXs]="10" [nzRequired]="'true'">名称</nz-form-label>
+                    <nz-form-control [nzSm]="8" [nzXs]="10">
+                        <nz-input-group>
+                            <input  nz-input [(ngModel)]="model.name"  name="name" placeholder="名称" [maxLength]="10">
+                          </nz-input-group >
+                    </nz-form-control>
+                </nz-form-item>
+              <nz-form-item>
+                <nz-form-label [nzSm]="8" [nzXs]="10"  [nzRequired]="'true'">key</nz-form-label>
+                  <nz-form-control [nzSm]="8" [nzXs]="10">
+                      <nz-input-group >
+                          <input  nz-input [(ngModel)]="model.key" name="key" placeholder="key" [maxLength]="10">
+                        </nz-input-group >
+                  </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                  <nz-form-label [nzSm]="8" [nzXs]="10" >描述</nz-form-label>
+                    <nz-form-control [nzSm]="8" [nzXs]="10">
+                        <nz-input-group>
+                            <textarea row="8" nz-input [(ngModel)]="model.description" name="description" placeholder="描述" [maxLength]="100"></textarea>
+                          </nz-input-group >
+                    </nz-form-control>
+                </nz-form-item>
+          </form>
+      </ng-container>
+    </div>
+    <div class="steps-content" *ngIf="current === 1">
+        <nz-upload
+          [(nzFileList)]="file"
+          [nzLimit]="1"
+          [nzBeforeUpload]="beforeUpload">
+          <button nz-button>
+            <i class="anticon anticon-upload"></i><span>选择文件</span>
+          </button>
+        </nz-upload>
+        <!-- <button nz-button [nzType]="'primary'" [nzLoading]="uploading" (click)="handleUpload()" [disabled]="file.length!==1" style="margin-top: 16px">
+          {{ uploading ? 'Uploading' : 'Start Upload' }}
+        </button> -->
+    </div>
+    <div class="steps-action">
+      <button nz-button nzType="default" (click)="pre()" *ngIf="current > 0">
+        <span>上一步</span>
+      </button>
+      <button nz-button nzType="default" (click)="next()" *ngIf="current < 1">
+        <span>下一步</span>
+      </button>
+      <button nz-button nzType="primary" (click)="cancle()" >
+          <span>取消</span>
+      </button>
+      <button nz-button nzType="primary" (click)="ok()" [disabled]="file.length!==1" *ngIf="current === 1">
+        <span>完成</span>
+      </button>
+    </div>
+  </ng-template>
+  <ng-template #footerContent>
+  </ng-template>
+</nz-modal>

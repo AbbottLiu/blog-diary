@@ -1,0 +1,102 @@
+<nz-modal
+[(nzVisible)]="userVisible"
+[nzTitle]="'员工信息'"
+[nzClosable]="false"
+[nzWidth]="520"
+[nzContent]="modalContent"
+[nzOkText]="'确定'"
+[nzCancelText]="'取消'"
+[nzMaskClosable]="false"
+[nzWrapClassName]="''"
+(nzOnCancel)="userCancel()"
+(nzOnOk)="userOk()">
+<ng-template #modalContent>
+    <form nz-form #form>
+        <nz-tabset [nzTabPosition]="'left'" [nzType]="'line'">
+            <nz-tab [nzTitle]="'角色设定'">
+                <nz-form-item>
+                    <nz-form-label [nzSm]="8" [nzXs]="10" >角色</nz-form-label>
+                    <nz-form-control [nzSm]="8" [nzXs]="10">
+                      <input nz-input  [(ngModel)]="user.authorities" name="user.authorities" placeholder="'角色名称'"/>
+                      </nz-form-control>
+                  </nz-form-item>
+            </nz-tab>
+            <nz-tab [nzTitle]="'基本信息'" required>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="8" [nzXs]="10" >登录名</nz-form-label>
+                    <nz-form-control [nzSm]="8" [nzXs]="10">
+                      <input nz-input  [(ngModel)]="user.username" name="user.username"  placeholder="'登录名'"/>
+                      </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="8" [nzXs]="10" >头像</nz-form-label>
+                    <upload [(user)]="user"></upload>
+                    <nz-form-control [nzSm]="8" [nzXs]="10">
+
+                      <!-- <input nz-input  [(ngModel)]="user.avatar" name="user.avatar"  placeholder="'头像'"/> -->
+                      </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="8" [nzXs]="10" >父部们</nz-form-label>
+                    <nz-form-control [nzSm]="8" [nzXs]="10">
+                        <input nz-input *ngIf="user.dept"  [(ngModel)]="user?.dept.name" name="dept.name||''" readonly="true" placeholder="'父部们'" (click)="openDeptTree()"/>
+                      <!-- <input nz-input  [(ngModel)]="user.username" name="username" readonly="true" placeholder="'父部们'"/> -->
+                      </nz-form-control>
+                  </nz-form-item>
+                  <nz-form-item>
+                      <nz-form-label [nzSm]="8" [nzXs]="10" >邮箱</nz-form-label>
+                      <nz-form-control [nzSm]="8" [nzXs]="10">
+                        <input type="email" nz-input  [(ngModel)]="user.email" name="user.email"  placeholder="'邮箱'"/>
+                        </nz-form-control>
+                  </nz-form-item>
+                  <nz-form-item>
+                      <nz-form-label [nzSm]="8" [nzXs]="10" >密码</nz-form-label>
+                      <nz-form-control [nzSm]="8" [nzXs]="10">
+                        <input type="password" nz-input  [(ngModel)]="user.password" name="user.password"  placeholder="'密码"/>
+                        </nz-form-control>
+                  </nz-form-item>
+            </nz-tab>
+            <nz-tab [nzTitle]="'详细信息'">
+                <nz-form-item>
+                    <nz-form-label [nzSm]="8" [nzXs]="10" >用户名</nz-form-label>
+                    <nz-form-control [nzSm]="8" [nzXs]="10">
+                      <input nz-input  [(ngModel)]="user.realName" name="realName"  placeholder="'用户名'"/>
+                      </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="8" [nzXs]="10" >性别</nz-form-label>
+                    <nz-form-control [nzSm]="8" [nzXs]="10">
+                      <input nz-input  [(ngModel)]="user.gender" name="user.gender"  placeholder="'性别'"/>
+                      </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="8" [nzXs]="10" >电话</nz-form-label>
+                    <nz-form-control [nzSm]="8" [nzXs]="10">
+                      <input nz-input  [(ngModel)]="user.tel" name="user.tel"  placeholder="'电话"/>
+                      </nz-form-control>
+                </nz-form-item>
+                  <!-- <nz-form-item>
+                    <nz-form-label [nzSm]="8" [nzXs]="10" [nzRequired]="true">部门名称</nz-form-label>
+                    <nz-form-control [nzSm]="8" [nzXs]="10" [nzValidateStatus]="nameValid===true? 'success':'error'">
+                      <input nz-input [(ngModel)]="user.name" name="name" placeholder="'部门名称'" (blur)="nameBlur()"/>
+                      <nz-form-explain *ngIf="!nameValid">部门代码已存在</nz-form-explain>
+                    </nz-form-control>
+                  </nz-form-item>
+                  <nz-form-item>
+                    <nz-form-label [nzSm]="8" [nzXs]="10" [nzRequired]="true">部门代码</nz-form-label>
+                    <nz-form-control [nzSm]="8" [nzXs]="10" [nzValidateStatus]="codeValid===true? 'success':'error'">
+                    <input nz-input  [(ngModel)]="user.code" name="code"  placeholder="'部门代码'"  (blur)="codeBlur()"/>
+                    <nz-form-explain *ngIf="!codeValid">部门代码已存在</nz-form-explain>
+                    </nz-form-control>
+                  </nz-form-item> -->
+            </nz-tab>
+          </nz-tabset>
+    </form>
+</ng-template>
+</nz-modal>
+<nz-modal [(nzVisible)]="deptTree" [nzContent]="deptTreeModalContent" [nzTitle]="'父部门选择'" (nzOnCancel)="deptTreeCancel()" (nzOnOk)="deptTreeOk()" [nzClosable]="false" [nzMaskClosable]="false">
+    <!-- 对话框主体 -->
+  <ng-template #deptTreeModalContent>
+    <dept-tree-read (click)="select($event)"></dept-tree-read>
+  </ng-template>
+</nz-modal>

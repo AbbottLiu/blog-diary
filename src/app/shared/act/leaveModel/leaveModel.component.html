@@ -1,0 +1,29 @@
+<nz-modal
+[(nzVisible)]="leaveVisible"
+[nzTitle]="'请假信息'"
+[nzClosable]="false"
+[nzWidth]="520"
+[nzContent]="modalContent"
+[nzOkText]="'确定'"
+[nzCancelText]="'取消'"
+[nzMaskClosable]="false"
+[nzWrapClassName]="''"
+(nzOnCancel)="leaveCancel()"
+(nzOnOk)="leaveOk()">
+<ng-template #modalContent>
+  <form nz-form #form>
+     <nz-form-item>
+       <nz-form-label [nzSm]="4" [nzXs]="10" >原因</nz-form-label>
+          <nz-form-control [nzSm]="18" [nzXs]="10">
+              <textarea row="4" nz-input  nzWidth="100%" [(ngModel)]="leave.reason" name="leave.reason"  placeholder="原因" [maxLength]="200"></textarea>
+            </nz-form-control>
+       </nz-form-item>
+       <nz-form-item>
+         <nz-form-label [nzSm]="4" [nzXs]="10" >时间</nz-form-label>
+           <nz-form-control [nzSm]="18" [nzXs]="10" >
+            <date-Range [(endValue)]="leave.endDate" [(startValue)]="leave.startDate"></date-Range>
+           </nz-form-control>
+        </nz-form-item>
+    </form>
+</ng-template>
+</nz-modal>

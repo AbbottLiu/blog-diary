@@ -1,0 +1,53 @@
+<nz-modal
+[(nzVisible)]="menuVisible"
+[nzTitle]="'菜单信息'"
+[nzClosable]="false"
+[nzWidth]="520"
+[nzContent]="modalContent"
+[nzOkText]="'确定'"
+[nzCancelText]="'取消'"
+[nzMaskClosable]="false"
+[nzWrapClassName]="''"
+(nzOnCancel)="menuCancel()"
+(nzOnOk)="menuOk()">
+<ng-template #modalContent>
+    <form nz-form #form>
+<nz-form-item>
+    <nz-form-label [nzSm]="8" [nzXs]="10" >名称</nz-form-label>
+      <nz-form-control [nzSm]="8" [nzXs]="10">
+          <input nz-input  [(ngModel)]="menu.text" name="menu.text" placeholder="'名称'"/>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="8" [nzXs]="10" >国际化</nz-form-label>
+        <nz-form-control [nzSm]="8" [nzXs]="10">
+          <input nz-input  [(ngModel)]="menu.i18n" name="menu.i18n"  placeholder="'国际化'"/>
+        </nz-form-control>
+    </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="8" [nzXs]="10" >路由</nz-form-label>
+          <nz-form-control [nzSm]="8" [nzXs]="10">
+            <input  nz-input  [(ngModel)]="menu.link" name="menu.link"  placeholder="'路由'"/>
+          </nz-form-control>
+      </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="8" [nzXs]="10" >外部链接</nz-form-label>
+        <nz-form-control [nzSm]="8" [nzXs]="10">
+            <input  nz-input  [(ngModel)]="menu.externalLink" name="menu.externalLink" placeholder="'外部链接'"/>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="8" [nzXs]="10" >图标</nz-form-label>
+          <nz-form-control [nzSm]="8" [nzXs]="10">
+            <input  nz-input  [(ngModel)]="menu.icon" name="menu.icon"  placeholder="'图标'"/>
+          </nz-form-control>
+      </nz-form-item>
+    <!-- <nz-form-item>
+      <nz-form-label [nzSm]="8" [nzXs]="10" >描述</nz-form-label>
+        <nz-form-control [nzSm]="8" [nzXs]="10">
+          <textarea row="4" nz-input  nzWidth="200px" [(ngModel)]="menu.acl" name="role.roleDesc"  placeholder="'描述"></textarea>
+        </nz-form-control>
+    </nz-form-item> -->
+    </form>
+</ng-template>
+</nz-modal>

@@ -1,0 +1,35 @@
+<form nz-form [formGroup]="form" class="login-form" (ngSubmit)="submit()" role="form">
+    <nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-lg"></nz-alert>
+    <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzSize="large" nzPrefixIcon="anticon anticon-user">
+            <input nz-input formControlName="userName" placeholder="用户名">
+          </nz-input-group>
+          <nz-form-explain *ngIf="userName.dirty && userName.errors?.required">请输入密码！</nz-form-explain>
+          <nz-form-explain *ngIf="userName.dirty && userName.errors?.minlength">至少五个字符</nz-form-explain>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzSize="large" nzPrefixIcon="anticon anticon-lock">
+            <input nz-input type="password" formControlName="password" placeholder="密码">
+          </nz-input-group>
+          <nz-form-explain *ngIf="password.dirty && password.errors?.required">请输入密码！</nz-form-explain>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-col [nzSpan]="12">
+            <label nz-checkbox formControlName="remember">
+                自动登录
+            </label>
+        </nz-col>
+        <nz-col [nzSpan]="12" class="text-right">
+            <a class="forgot" (click)="msg.error('请联系管理员')">忘记密码？</a>
+        </nz-col>
+    </nz-form-item>
+    <nz-form-item>
+        <button nz-button [nzType]="'primary'" [nzLoading]="loading" [nzSize]="'large'" class="ant-btn__block">
+            登录
+        </button>
+    </nz-form-item>
+</form>

@@ -1,0 +1,28 @@
+<table>
+  <tr>
+    <th>
+      <nz-date-picker
+      [nzDisabledDate]="disabledStartDate"
+      nzShowTime
+      nzFormat="yyyy-MM-dd HH:mm:ss"
+      [(ngModel)]="startValue"
+      nzPlaceHolder="开始时间"
+      (ngModelChange)="onStartChange($event)"
+      (nzOnOpenChange)="handleStartOpenChange($event)">
+      </nz-date-picker>
+    </th>
+    <th>
+      <nz-date-picker
+      [nzDisabledDate]="disabledEndDate"
+      nzShowTime
+      nzFormat="yyyy-MM-dd HH:mm:ss"
+      [(ngModel)]="endValue"
+      nzPlaceHolder="结束时间"
+      [nzOpen]="endOpen"
+      (ngModelChange)="onEndChange($event)"
+      (nzOnOpenChange)="handleEndOpenChange($event)">
+      </nz-date-picker>
+    </th>
+  </tr>
+</table>
+
